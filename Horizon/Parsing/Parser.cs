@@ -54,7 +54,13 @@ internal class Parser
 
     private FunctionASTNode ParseFunction(Footprint footprint)
     {
-        throw new NotImplementedException();
+        List<StatementASTNode> statements = ParseCodeBlock();
+
+        return new()
+        {
+            Footprint = footprint,
+            Statements = statements.ToArray()
+        };
     }
 
     private IEnumerable<Footprint> ParseFootprints()
