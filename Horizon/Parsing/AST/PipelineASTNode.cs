@@ -19,7 +19,7 @@ internal class PipelineASTNode : IASTNode
     public readonly IASTNode[] Processors;
 
     public PipelineASTNode(IASTNode provider, IASTNode consumer)
-        : this (provider, consumer, new IASTNode[0]) { }
+        : this (provider, consumer, Array.Empty<IASTNode>()) { }
 
     public PipelineASTNode(IASTNode provider, IASTNode consumer, IASTNode[] processors)
     {
