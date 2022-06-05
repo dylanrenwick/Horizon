@@ -26,7 +26,7 @@ public class HorizonCompiler
         log.Info($"Loaded {tokens.Length} tokens");
     }
 
-    private List<TokenParser> GetTokenParsers()
+    private static List<TokenParser> GetTokenParsers()
     {
         return new()
         {
