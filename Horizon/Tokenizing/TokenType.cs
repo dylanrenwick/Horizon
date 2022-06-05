@@ -24,6 +24,7 @@ internal enum TokenType
     IntKeyword,
     CharKeyword,
     BoolKeyword,
+    FuncKeyword,
     // Misc
     Identifier,
     // Symbols

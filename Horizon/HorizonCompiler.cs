@@ -56,6 +56,7 @@ public class HorizonCompiler
             new KeywordTokenParser(TokenType.IntKeyword, "int"),
             new KeywordTokenParser(TokenType.BoolKeyword, "bool"),
             new KeywordTokenParser(TokenType.CharKeyword, "char"),
+            new KeywordTokenParser(TokenType.FuncKeyword, "func"),
             new RegexTokenParser(TokenType.Identifier, @"[_a-zA-Z][_a-zA-Z0-9]*"),
             new StringTokenParser(TokenType.String)
         };
