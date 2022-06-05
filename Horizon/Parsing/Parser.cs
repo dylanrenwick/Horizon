@@ -88,6 +88,22 @@ internal class Parser
         };
     }
 
+    private List<StatementASTNode> ParseCodeBlock()
+    {
+        List<StatementASTNode> statements = new();
+
+        tokens.Expect(TokenType.OpenBrace);
+
+        while (tokens.Peek().Type != TokenType.CloseBrace)
+        {
+            statements.Add(ParseStatement());
+        }
+
+        tokens.Expect(TokenType.CloseBrace);
+
+        return statements;
+    }
+
     private StatementASTNode ParseStatement()
     {
         throw new NotImplementedException();
