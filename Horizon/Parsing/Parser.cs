@@ -1,4 +1,4 @@
-using Horizon.Logging;
+﻿using Horizon.Logging;
 using Horizon.Parsing.AST;
 using Horizon.Tokenizing;
 
@@ -21,6 +21,19 @@ internal class Parser
     public ProgramASTNode Parse(TokenStream tokens)
     {
         this.tokens = tokens;
+
+        List<FunctionASTNode> functions = ParseFunctions();
+        // TODO: Allow user-defined entry point
+        FunctionASTNode? mainFunc = functions
+            .Where(f => f.Footprint.Name == "main")
+            .FirstOrDefault();
+
+        if (mainFunc == null) throw new Exception("Could not find entry point 'main'");
+
+        return new(
+            mainFunc,
+            functions
+        );
     }
 
     private List<FunctionASTNode> ParseFunctions()
