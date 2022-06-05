@@ -68,6 +68,8 @@ internal class Parser
             args.Add(ParseArg());
         }
 
+        tokens.Expect(TokenType.CloseParen);
+
         return args.ToArray();
     }
 
