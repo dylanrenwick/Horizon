@@ -6,11 +6,10 @@ namespace Horizon.Parsing;
 
 internal class Parser
 {
-    private Logger log;
+    private readonly Logger log;
+    private readonly NameResolver nameResolver;
 
     private TokenStream tokens;
-
-    private NameResolver nameResolver;
 
     public Parser(Logger logger)
     {
