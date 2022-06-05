@@ -139,12 +139,12 @@ internal class Parser
 
     private static ValueType TypeFromToken(Token tok)
     {
-        switch (tok.Value)
+        return tok.Value switch
         {
-            case "int": return ValueType.Int;
-            case "bool": return ValueType.Bool;
-            case "char": return ValueType.Char;
-            default: return ValueType.None;
-        }
+            "int" => ValueType.Int,
+            "bool" => ValueType.Bool,
+            "char" => ValueType.Char,
+            _ => ValueType.None,
+        };
     }
 }
