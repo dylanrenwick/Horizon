@@ -28,6 +28,16 @@ internal class Parser
         IEnumerable<Footprint> footprints = ParseFootprints();
         nameResolver.RegisterFunctions(footprints);
 
+        List<FunctionASTNode> functions = new();
+
+        foreach (var footprint in footprints)
+        {
+            tokens.Seek(footprint.TokenStart);
+
+            functions.Add(ParseFunction());
+        }
+
+        return functions;
     }
 
     private FunctionASTNode ParseFunction()
