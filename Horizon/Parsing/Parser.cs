@@ -38,6 +38,7 @@ internal class Parser
     private Footprint ParseFunctionFootprint()
     {
         string name = tokens.Expect(TokenType.Identifier).Value;
+        int startIndex = tokens.Index;
 
         tokens.Expect(TokenType.OpenParen);
 
@@ -47,12 +48,15 @@ internal class Parser
         tokens.Expect(TokenType.Colon);
 
         TypeDef returnType = ParseType();
+        int endIndex = tokens.Index;
 
         return new()
         {
             Name = name,
             ReturnType = returnType,
-            Args = funcArgs
+            Args = funcArgs,
+            TokenStart = startIndex,
+            TokenEnd = endIndex
         };
     }
 
