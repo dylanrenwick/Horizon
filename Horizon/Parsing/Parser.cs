@@ -23,7 +23,7 @@ internal class Parser
         this.tokens = tokens;
     }
 
-    private IEnumerable<FunctionASTNode> ParseFunctions()
+    private List<FunctionASTNode> ParseFunctions()
     {
         IEnumerable<Footprint> footprints = ParseFootprints();
         nameResolver.RegisterFunctions(footprints);
