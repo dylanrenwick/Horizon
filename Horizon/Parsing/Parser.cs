@@ -1,4 +1,4 @@
-﻿using Horizon.Logging;
+using Horizon.Logging;
 using Horizon.Parsing.AST;
 using Horizon.Tokenizing;
 
@@ -27,7 +27,7 @@ internal class Parser
 
     private IEnumerable<Footprint> ParseFootprint()
     {
-
+        return tokens.FromEach(TokenType.FuncKeyword, ParseFunctionFootprint);
     }
 
     private Footprint ParseFunctionFootprint()
