@@ -1,4 +1,4 @@
-using Horizon.Logging;
+﻿using Horizon.Logging;
 using Horizon.Parsing.AST;
 using Horizon.Tokenizing;
 
@@ -74,20 +74,14 @@ internal class Parser
 
     private TypeDef ParseType()
     {
-        Token typeName = tokens.Expect(
+        Token typeToken = tokens.Expect(
             TokenType.Identifier,
             TokenType.IntKeyword,
             TokenType.CharKeyword,
             TokenType.BoolKeyword
         );
 
-        ValueType type = typeName.Value switch
-        {
-            "int" => ValueType.Int,
-            "bool" => ValueType.Bool,
-            "char" => ValueType.Char,
-            _ => ValueType.None
-        };
+        ValueType type = TypeFromToken(typeToken);
 
         // TODO: Parse array and pointer types
 
@@ -97,5 +91,16 @@ internal class Parser
             IsArray = false,
             IsPointer = false
         };
+    }
+
+    private static ValueType TypeFromToken(Token tok)
+    {
+        switch (tok.Value)
+        {
+            case "int": return ValueType.Int;
+            case "bool": return ValueType.Bool;
+            case "char": return ValueType.Char;
+            default: return ValueType.None;
+        }
     }
 }
