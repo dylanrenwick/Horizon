@@ -30,6 +30,11 @@ internal class Parser
 
     }
 
+    private FunctionASTNode ParseFunction()
+    {
+        throw new NotImplementedException();
+    }
+
     private IEnumerable<Footprint> ParseFootprints()
     {
         return tokens.FromEach(TokenType.FuncKeyword, ParseFootprint);
