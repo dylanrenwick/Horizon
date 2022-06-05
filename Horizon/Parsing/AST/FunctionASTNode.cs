@@ -2,9 +2,8 @@
 
 internal class FunctionASTNode : IASTNode
 {
-    public readonly Footprint Footprint;
+    public Footprint Footprint { get; init; }
+    public StatementASTNode[] Statements { get; init; }
 
-    private readonly StatementASTNode[] statements;
-
-    public IEnumerable<IASTNode> Children => statements;
+    public IEnumerable<IASTNode> Children => Statements;
 }
