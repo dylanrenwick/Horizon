@@ -1,7 +1,7 @@
 ﻿namespace Horizon.Parsing;
 internal class NameResolver
 {
-    private Dictionary<string, List<Footprint>> functionFootprints;
+    private readonly Dictionary<string, List<Footprint>> functionFootprints;
 
     public NameResolver()
     {
