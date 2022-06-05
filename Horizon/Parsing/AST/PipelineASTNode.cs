@@ -6,7 +6,7 @@ internal class PipelineASTNode : IASTNode
     {
         get
         {
-            var children = new List<IASTNode>();
+            List<IASTNode> children = new();
             children.Add(Provider);
             children.AddRange(Processors);
             children.Add(Consumer);
