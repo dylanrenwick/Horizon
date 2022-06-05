@@ -7,9 +7,9 @@ internal class ProgramASTNode : IASTNode
 
     public IEnumerable<IASTNode> Children => functions;
 
-    public ProgramASTNode(FunctionASTNode main, FunctionASTNode[] funcs)
+    public ProgramASTNode(FunctionASTNode main, IEnumerable<FunctionASTNode> funcs)
     {
         this.main = main;
-        functions = funcs;
+        functions = funcs.ToArray();
     }
 }
