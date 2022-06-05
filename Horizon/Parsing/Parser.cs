@@ -1,4 +1,4 @@
-﻿using Horizon.Logging;
+using Horizon.Logging;
 using Horizon.Parsing.AST;
 using Horizon.Tokenizing;
 
@@ -10,9 +10,13 @@ internal class Parser
 
     private TokenStream tokens;
 
+    private NameResolver nameResolver;
+
     public Parser(Logger logger)
     {
         log = logger;
+
+        nameResolver = new();
     }
 
     public ProgramASTNode Parse(TokenStream tokens)
