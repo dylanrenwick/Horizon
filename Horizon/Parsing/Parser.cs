@@ -25,6 +25,8 @@ internal class Parser
 
     private IEnumerable<FunctionASTNode> ParseFunctions()
     {
+        IEnumerable<Footprint> footprints = ParseFootprints();
+        nameResolver.RegisterFunctions(footprints);
 
     }
 
