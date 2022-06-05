@@ -56,20 +56,25 @@ internal class Parser
         List<Arg> args = new();
         while (tokens.Peek().Type != TokenType.CloseParen)
         {
-            string argName = tokens.Expect(TokenType.Identifier).Value;
-
-            tokens.Expect(TokenType.Colon);
-
-            TypeDef argType = ParseType();
-
-            args.Add(new()
-            {
-                Name = argName,
-                Type = argType
-            });
+            args.Add(ParseArg());
         }
 
         return args.ToArray();
+    }
+
+    private Arg ParseArg()
+    {
+        string argName = tokens.Expect(TokenType.Identifier).Value;
+
+        tokens.Expect(TokenType.Colon);
+
+        TypeDef argType = ParseType();
+
+        return new()
+        {
+            Name = argName,
+            Type = argType
+        };
     }
 
     private TypeDef ParseType()
