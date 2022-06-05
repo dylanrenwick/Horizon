@@ -32,10 +32,10 @@ internal class Parser
 
     private IEnumerable<Footprint> ParseFootprints()
     {
-        return tokens.FromEach(TokenType.FuncKeyword, ParseFunctionFootprint);
+        return tokens.FromEach(TokenType.FuncKeyword, ParseFootprint);
     }
 
-    private Footprint ParseFunctionFootprint()
+    private Footprint ParseFootprint()
     {
         string name = tokens.Expect(TokenType.Identifier).Value;
         int startIndex = tokens.Index;
