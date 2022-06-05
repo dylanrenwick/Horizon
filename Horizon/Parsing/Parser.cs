@@ -1,4 +1,4 @@
-﻿using Horizon.Logging;
+using Horizon.Logging;
 using Horizon.Parsing.AST;
 using Horizon.Tokenizing;
 
@@ -86,6 +86,11 @@ internal class Parser
             TokenStart = startIndex,
             TokenEnd = endIndex
         };
+    }
+
+    private StatementASTNode ParseStatement()
+    {
+        throw new NotImplementedException();
     }
 
     private Arg[] ParseArgs()
