@@ -32,16 +32,16 @@ internal class Parser
 
     private Footprint ParseFunctionFootprint()
     {
-        var name = tokens.Expect(TokenType.Identifier).Value;
+        string name = tokens.Expect(TokenType.Identifier).Value;
 
         tokens.Expect(TokenType.OpenParen);
 
-        var funcArgs = ParseArgs();
+        Arg[] funcArgs = ParseArgs();
 
         tokens.Expect(TokenType.CloseParen);
         tokens.Expect(TokenType.Colon);
 
-        var returnType = ParseType();
+        TypeDef returnType = ParseType();
 
         return new()
         {
@@ -56,14 +56,15 @@ internal class Parser
         List<Arg> args = new();
         while (tokens.Peek().Type != TokenType.CloseParen)
         {
-            var argName = tokens.Expect(TokenType.Identifier);
+            string argName = tokens.Expect(TokenType.Identifier).Value;
+
             tokens.Expect(TokenType.Colon);
 
-            var argType = ParseType();
+            TypeDef argType = ParseType();
 
             args.Add(new()
             {
-                Name = argName.Value,
+                Name = argName,
                 Type = argType
             });
         }
@@ -73,7 +74,7 @@ internal class Parser
 
     private TypeDef ParseType()
     {
-        var typeName = tokens.Expect(TokenType.Identifier, TokenType.Keyword);
+        Token typeName = tokens.Expect(TokenType.Identifier, TokenType.Keyword);
 
         ValueType type = typeName.Value switch
         {
