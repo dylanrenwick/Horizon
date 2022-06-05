@@ -74,7 +74,12 @@ internal class Parser
 
     private TypeDef ParseType()
     {
-        Token typeName = tokens.Expect(TokenType.Identifier, TokenType.Keyword);
+        Token typeName = tokens.Expect(
+            TokenType.Identifier,
+            TokenType.IntKeyword,
+            TokenType.CharKeyword,
+            TokenType.BoolKeyword
+        );
 
         ValueType type = typeName.Value switch
         {
