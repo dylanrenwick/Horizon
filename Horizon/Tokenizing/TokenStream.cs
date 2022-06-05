@@ -56,7 +56,7 @@ internal class TokenStream : IEnumerator<Token>
         return token;
     }
 
-    public IEnumerable<T> FromEach<T>(TokenType type, Func<TokenStream, T> pred)
+    public IEnumerable<T> FromEach<T>(TokenType type, Func<T> pred)
     {
         int originalIndex = index;
 
@@ -67,7 +67,7 @@ internal class TokenStream : IEnumerator<Token>
         {
             if (Current.Type == type)
             {
-                var result = pred(this);
+                var result = pred();
                 results.Add(result);
             }                
         }
