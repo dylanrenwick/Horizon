@@ -6,40 +6,40 @@ internal class TokenStream : IEnumerator<Token>
 {
     private readonly List<Token> tokens;
 
-    private int index;
+    public int Index { get; private set; }
 
-    public Token Current => tokens[index];
-    object IEnumerator.Current => tokens[index];
+    public Token Current => tokens[Index];
+    object IEnumerator.Current => tokens[Index];
 
     public int Length => tokens.Count;
 
     public TokenStream(List<Token> tokens)
     {
         this.tokens = tokens;
-        index = 0;
+        Index = 0;
     }
 
     public void Dispose() { }
 
     public bool MoveNext()
     {
-        index++;
-        return index < tokens.Count;
+        Index++;
+        return Index < tokens.Count;
     }
 
     public void Reset()
     {
-        index = 0;
+        Index = 0;
     }
 
     public void Seek(int index)
     {
-        this.index = index;
+        this.Index = index;
     }
 
     public Token Peek()
     {
-        return tokens[index + 1];
+        return tokens[Index + 1];
     }
     public Token Pop()
     {
@@ -58,7 +58,7 @@ internal class TokenStream : IEnumerator<Token>
 
     public IEnumerable<T> FromEach<T>(TokenType type, Func<T> pred)
     {
-        int originalIndex = index;
+        int originalIndex = Index;
 
         List<T> results = new();
 
