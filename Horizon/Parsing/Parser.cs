@@ -46,14 +46,13 @@ internal class Parser
         foreach (var footprint in footprints)
         {
             tokens.Seek(footprint.TokenStart);
-
-            functions.Add(ParseFunction());
+            functions.Add(ParseFunction(footprint));
         }
 
         return functions;
     }
 
-    private FunctionASTNode ParseFunction()
+    private FunctionASTNode ParseFunction(Footprint footprint)
     {
         throw new NotImplementedException();
     }
