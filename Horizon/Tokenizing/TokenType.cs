@@ -18,4 +18,20 @@ internal enum TokenType
     Divide,
     Modulus,
     MemberAccess,
+    PipeRight,
+    PipeLeft,
+    // Keywords
+    IntKeyword,
+    CharKeyword,
+    BoolKeyword,
+    // Misc
+    Identifier,
+    // Symbols
+    OpenParen,
+    CloseParen,
+    OpenBrace,
+    CloseBrace,
+    OpenBracket,
+    CloseBracket,
+    Colon
 }

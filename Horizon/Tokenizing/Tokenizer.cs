@@ -17,16 +17,19 @@ internal class Tokenizer
     private readonly StringBuilder tokenBuilder = new();
     private readonly List<Token> tokens = new();
 
-    public Tokenizer(Logger logger)
+    private readonly List<TokenParser> tokenParsers;
+
+    public Tokenizer(Logger logger, List<TokenParser> parsers)
     {
         log = logger;
+        tokenParsers = parsers;
     }
 
-    public IEnumerable<Token> Tokenize(string source)
+    public TokenStream Tokenize(string source)
     {
         sourceCode = source;
         ParseTokens();
-        return tokens;
+        return new TokenStream(tokens);
     }
 
     private void ParseTokens()
@@ -51,35 +54,42 @@ internal class Tokenizer
     {
         if (sourcePos >= sourceCode.Length) return Token.EOF(sourcePos, sourceLine, sourceColumn);
 
-        TokenType lastType = TokenType.None;
+        TokenParser? tokenParser = null;
         for (
             tokenBuilder.Clear();
             sourcePos < sourceCode.Length;
             sourcePos++
         )
         {
-            tokenBuilder.Append(sourceCode[sourcePos]);
-            TokenType? tokenType = TokenParser.TryParseToken(tokenBuilder.ToString());
-            if (tokenType.HasValue)
+            char nextChar = sourceCode[sourcePos];
+            if (tokenBuilder.Length > 0)
             {
-                lastType = tokenType.Value;
-            }
-            else
-            {
-                if (lastType == TokenType.None)
-                    throw new TokenizerException($"Untokenizable string '{tokenBuilder}'");
+                if (tokenParser == null) tokenParser = TryGetTokenParser(tokenBuilder.ToString());
+                if (tokenParser == null) throw new TokenizerException($"Untokenizable string {tokenBuilder}");
 
-                tokenBuilder.Remove(tokenBuilder.Length - 1, 1);
-                return BuildToken(tokenBuilder.ToString(), lastType);
+                if (!tokenParser.Check(tokenBuilder.ToString() + nextChar))
+                {
+                    var nextTokenParser = TryGetTokenParser(tokenBuilder.ToString() + nextChar);
+                    if (nextTokenParser == null) break;
+
+                    tokenParser = nextTokenParser;
+                }
             }
+
+            tokenBuilder.Append(nextChar);
         }
 
         if (tokenBuilder.Length > 0)
         {
-            if (lastType == TokenType.None)
+            if (tokenParser == null)
                 throw new TokenizerException($"Untokenizable string {tokenBuilder}");
 
-            return BuildToken(tokenBuilder.ToString(), lastType);
+            return tokenParser.Parse(
+                tokenBuilder.ToString(),
+                sourcePos - (tokenBuilder.Length + 1),
+                tokenBuilder.Length,
+                sourceLine, sourceColumn
+            );
         }
         else
         {
@@ -106,6 +116,16 @@ internal class Tokenizer
             sourcePos, val.Length,
             sourceLine, sourceColumn
         );
+    }
+
+    private TokenParser? TryGetTokenParser(string token)
+    {
+        foreach (var parser in tokenParsers)
+        {
+            if (parser.Check(token)) return parser;
+        }
+
+        return null;
     }
 }
 
