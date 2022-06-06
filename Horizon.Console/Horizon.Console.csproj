@@ -11,4 +11,10 @@
     <ProjectReference Include="..\Horizon\Horizon.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="testSource.hz">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
