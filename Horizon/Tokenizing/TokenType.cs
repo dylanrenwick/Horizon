@@ -34,5 +34,6 @@ internal enum TokenType
     CloseBrace,
     OpenBracket,
     CloseBracket,
-    Colon
+    Colon,
+    Semicolon
 }

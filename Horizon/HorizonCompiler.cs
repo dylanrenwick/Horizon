@@ -43,6 +43,7 @@ public class HorizonCompiler
             new CharTokenParser(TokenType.OpenParen, '('),
             new CharTokenParser(TokenType.CloseParen, ')'),
             new CharTokenParser(TokenType.Colon, ':'),
+            new CharTokenParser(TokenType.Semicolon, ';'),
 
             new CharTokenParser(TokenType.Add, '+'),
             new CharTokenParser(TokenType.Subtract, '-'),
