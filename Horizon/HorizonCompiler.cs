@@ -24,6 +24,7 @@ public class HorizonCompiler
         log.Info("Beginning Tokenization");
         var tokens = tokenizer.Tokenize(sourceCode);
         log.Info($"Loaded {tokens.Length} tokens");
+        var astRoot = parser.Parse(tokens);
     }
 
     private static List<TokenParser> GetTokenParsers()
