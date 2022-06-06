@@ -114,6 +114,24 @@ internal class Parser
         throw new NotImplementedException();
     }
 
+    private DeclarationASTNode ParseDeclaration(string varName)
+    {
+        tokens.Expect(TokenType.Colon);
+
+        TypeDef varType = ParseType();
+
+        var declaration = new Declaration()
+        {
+            Name = varName,
+            Type = varType,
+        };
+
+        return new DeclarationASTNode()
+        {
+            Declaration = declaration,
+        };
+    }
+
     private Arg[] ParseArgs()
     {
         List<Arg> args = new();
