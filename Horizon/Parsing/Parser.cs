@@ -111,7 +111,25 @@ internal class Parser
 
     private StatementASTNode ParseStatement()
     {
-        throw new NotImplementedException();
+        Token firstToken = tokens.Pop();
+
+        bool requiresSemicolon = true;
+        StatementASTNode? statement = null;
+
+        if (firstToken.Type == TokenType.Identifier)
+        {
+            Token nextToken = tokens.Peek();
+            if (nextToken.Type == TokenType.Colon)
+                statement = ParseDeclaration(firstToken.Value);
+        }
+
+        if (statement == null)
+            throw new NotImplementedException();
+
+        if (requiresSemicolon)
+            tokens.Expect(TokenType.Semicolon);
+        
+        return statement;
     }
 
     private DeclarationASTNode ParseDeclaration(string varName)
